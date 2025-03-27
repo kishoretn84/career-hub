@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function() {
 document.querySelector("#searchJobs").addEventListener("click", function() {
     const jobQuery = document.querySelector("#jobQuery").value;
     if (jobQuery) {
-        const jobSearchUrl = https://www.indeed.com/jobs?q=${encodeURIComponent(jobQuery)};
+        const jobSearchUrl = " https://www.glassdoor.com/Job/jobs.htm?sc.keyword=${encodeURIComponent(jobQuery)"};
         window.open(jobSearchUrl, "_blank");
     } else {
         alert("Please enter a job title to search.");
-    }
+    }
 });
