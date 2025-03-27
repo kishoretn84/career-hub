@@ -14,3 +14,21 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Start exploring career paths and skills!");
     });
 });
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector("#careerForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const interest = document.querySelector("#interest").value;
+        let recommendation = "";
+
+        if (interest === "software") {
+            recommendation = "We recommend becoming a Software Engineer! Start learning at <a href='https://www.udemy.com/topic/software-development/' target='_blank'>Udemy Software Development Courses</a>.";
+        } else if (interest === "data") {
+            recommendation = "Consider a career as a Data Scientist! Learn more at <a href='https://www.coursera.org/courses?query=data%20science' target='_blank'>Coursera Data Science Courses</a>.";
+        } else if (interest === "cybersecurity") {
+            recommendation = "Explore the field of Cybersecurity! Start learning at <a href='https://www.udemy.com/course/cyber-security-for-beginners/' target='_blank'>Udemy Cybersecurity Courses</a>.";
+        }
+
+        document.querySelector("#suggestionResult").innerHTML = recommendation;
+    });
+});
