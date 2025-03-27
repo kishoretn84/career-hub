@@ -37,31 +37,49 @@
             <a href="#careers" class="btn btn-warning btn-lg">Get Started</a>
         </div>
     </section>
-
-    <!-- Career Section -->
-    <section id="careers" class="container text-center my-5">
-        <h2 class="mb-4">Popular Career Paths</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="career-card shadow p-4 rounded">
-                    <h3>Software Engineer</h3>
-                    <p>Develop applications and software solutions.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="career-card shadow p-4 rounded">
-                    <h3>Data Scientist</h3>
-                    <p>Analyze data and extract insights using AI and ML.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="career-card shadow p-4 rounded">
-                    <h3>Cybersecurity Expert</h3>
-                    <p>Protect systems from cyber threats and vulnerabilities.</p>
-                </div>
+<!-- Career Recommendation Form -->
+<section id="recommendation" class="container text-center my-5">
+    <h2>Find the Right Career Path</h2>
+    <form id="careerForm">
+        <div class="mb-3">
+            <label for="interest" class="form-label">What is your area of interest?</label>
+            <select class="form-select" id="interest">
+                <option value="software">Software Development</option>
+                <option value="data">Data Science</option>
+                <option value="cybersecurity">Cybersecurity</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Get Recommendation</button>
+    </form>
+    <div id="suggestionResult" class="mt-4"></div>
+</section>
+   <!-- Career Section with Redirection -->
+<section id="careers" class="container text-center my-5">
+    <h2 class="mb-4">Popular Career Paths</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="career-card shadow p-4 rounded">
+                <h3>Software Engineer</h3>
+                <p>Develop applications and software solutions.</p>
+                <a href="https://www.linkedin.com/jobs/software-engineer-jobs" class="btn btn-primary mt-3" target="_blank">Explore Careers</a>
             </div>
         </div>
-    </section>
+        <div class="col-md-4">
+            <div class="career-card shadow p-4 rounded">
+                <h3>Data Scientist</h3>
+                <p>Analyze data and extract insights using AI and ML.</p>
+                <a href="https://www.coursera.org/courses?query=data%20science" class="btn btn-primary mt-3" target="_blank">Learn Data Science</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="career-card shadow p-4 rounded">
+                <h3>Cybersecurity Expert</h3>
+                <p>Protect systems from cyber threats and vulnerabilities.</p>
+                <a href="https://www.udemy.com/course/cyber-security-for-beginners/" class="btn btn-primary mt-3" target="_blank">Start Learning</a>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Skills Section -->
     <section id="skills" class="bg-light py-5">
