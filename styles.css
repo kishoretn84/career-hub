@@ -23,7 +23,43 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+/* Job Search Form */
+#jobSearch .input-group {
+    max-width: 500px;
+    margin: 0 auto;
+}
 
+#jobQuery {
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+#searchJobs {
+    padding: 10px 20px;
+    font-size: 1.1em;
+}
+
+/* Hero Section - Visual Appeal */
+.hero {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+    padding: 100px 0;
+}
+
+.hero .btn {
+    font-size: 1.2em;
+    padding: 15px 30px;
+}
+
+/* Career Cards */
+.career-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.career-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
 /* Skills Section */
 #skills .badge {
     font-size: 1.1em;
