@@ -1,61 +1,42 @@
-/* General Styles */
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background-color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Header */
-header {
-    background-color: #0073e6;
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 50, 0.7), rgba(0, 0, 50, 0.7)), url('assets/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
     color: white;
-    padding: 20px;
+    padding: 100px 0;
 }
 
-header h1 {
-    margin: 0;
-}
-
-/* Courses Section */
-.courses {
-    padding: 30px;
-}
-
-.course-list {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.course {
+/* Career Cards */
+.career-card {
     background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px;
+    transition: 0.3s;
+    text-align: center;
 }
 
-.enroll-btn {
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin-top: 10px;
+.career-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Skills Section */
+#skills .badge {
+    font-size: 1.1em;
     cursor: pointer;
-    width: 100%;
-    border-radius: 5px;
+    transition: 0.3s;
 }
 
-.enroll-btn:hover {
-    background-color: #005bb5;
+#skills .badge:hover {
+    background: #ffc107;
+    color: black;
 }
 
 /* Footer */
 footer {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    margin-top: 20px;
+    background: #222;
 }
