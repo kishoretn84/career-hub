@@ -14,7 +14,7 @@ body {
 
 /* Career Cards */
 .career-card {
-    background: black;
+    background: white;
     transition: 0.3s;
     text-align: center;
 }
@@ -97,7 +97,7 @@ body {
 
 #skills .badge:hover {
     background: #ffc107;
-    color: black;
+    color: white;
 }
 
 /* Footer */
