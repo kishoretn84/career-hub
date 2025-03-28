@@ -14,7 +14,7 @@ body {
 
 /* Career Cards */
 .career-card {
-    background: white;
+    background: black;
     transition: 0.3s;
     text-align: center;
 }
