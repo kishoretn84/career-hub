@@ -88,18 +88,50 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Skills Section */
-#skills .badge {
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: 0.3s;
+/* Box for Skills Section */
+.skill-box {
+    background: linear-gradient(135deg, #f8f9fa, #e3e6f0); /* Soft gradient */
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    margin: 20px auto; /* Center the box */
+    text-align: center;
 }
 
-#skills .badge:hover {
-    background: #ffc107;
+/* Skill Card Styling */
+.skill-card {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient blue */
     color: white;
+    padding: 15px 20px;
+    margin: 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Hover Effect */
+.skill-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #0056b3, #003d82);
+}
+
+/* Responsive Grid Layout */
+@media (min-width: 768px) {
+    .row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .skill-card {
+        flex: 1;
+        min-width: 200px;
+    }
+}
 /* Footer */
 footer {
     background: #222;
