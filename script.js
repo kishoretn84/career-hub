@@ -9,6 +9,64 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
      <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCjawj05DLBBMCKfjOzVSb7s5ZvbkVCe7s",
+  authDomain: "career-hub-20458.firebaseapp.com",
+  projectId: "career-hub-20458",
+  storageBucket: "career-hub-20458.appspot.com",
+  messagingSenderId: "741304763324",
+  appId: "1:741304763324:web:476dd2e483d34c8b3a61b9",
+  measurementId: "G-9904BZ8NXD"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+let confirmationResult;
+
+window.onload = function () {
+  firebase.auth().useDeviceLanguage();
+
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+    size: 'invisible',
+    callback: function (response) {
+      // reCAPTCHA solved
+    }
+  });
+
+  // Render it
+  recaptchaVerifier.render().then(widgetId => {
+    window.recaptchaWidgetId = widgetId;
+  });
+};
+
+function sendOTP() {
+  const phoneNumber = document.getElementById('phoneNumber').value;
+  const appVerifier = window.recaptchaVerifier;
+
+  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+    .then(function (result) {
+      confirmationResult = result;
+      document.getElementById('otpSection').style.display = 'block';
+      document.getElementById('phoneSection').style.display = 'none';
+      alert("OTP sent to " + phoneNumber);
+    })
+    .catch(function (error) {
+      alert("Error sending OTP: " + error.message);
+    });
+}
+
+function verifyOtp() {
+  const otp = document.getElementById('otpCode').value;
+
+  confirmationResult.confirm(otp)
+    .then(function (result) {
+      alert("Login successful!");
+      document.getElementById('loginModal').style.display = 'none';
+    })
+    .catch(function (error) {
+      alert("Invalid OTP. Try again.");
+    });
+}
 
     // Alert on clicking Get Started button
     document.querySelector(".btn").addEventListener("click", function() {
