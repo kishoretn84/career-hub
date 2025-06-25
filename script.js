@@ -8,6 +8,29 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+     <script>
+let generatedOtp = '';
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const number = document.getElementById('mobileNumber').value;
+    generatedOtp = Math.floor(1000 + Math.random() * 9000).toString(); // Random 4-digit OTP
+
+    alert(`OTP sent to ${number}: ${generatedOtp}`); // For demo purposes only
+    document.getElementById('otpSection').style.display = 'block';
+});
+
+function verifyOtp() {
+    const userOtp = document.getElementById('otpInput').value;
+    if (userOtp === generatedOtp) {
+        alert("Login successful!");
+        document.getElementById('loginModal').style.display = 'none';
+    } else {
+        alert("Incorrect OTP. Try again.");
+    }
+}
+</script>
+
 
     // Alert on clicking Get Started button
     document.querySelector(".btn").addEventListener("click", function() {
