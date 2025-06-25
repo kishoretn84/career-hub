@@ -9,34 +9,27 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
 </head>
 <body>
- <!-- LOGIN MODAL -->
-<div id="loginModal" class="d-flex align-items-center justify-content-center position-fixed bg-light"
-    style="top:0; left:0; width:100%; height:100vh; z-index:9999;">
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="d-flex align-items-center justify-content-center position-fixed bg-light" style="top:0; left:0; width:100%; height:100vh; z-index:9999;">
     <div class="border rounded p-4 bg-white shadow" style="max-width: 400px; width: 90%;">
-        <h3 class="mb-3 text-center">Login to Career Hub</h3>
-
-        <!-- Phone Number Form -->
-        <div id="phoneSection">
-            <label for="phoneNumber" class="form-label">Mobile Number</label>
-            <input type="tel" id="phoneNumber" class="form-control mb-3" placeholder="+91XXXXXXXXXX" required />
-            <div id="recaptcha-container" class="mb-3"></div>
-            <button class="btn btn-primary w-100" onclick="sendOTP()">Send OTP</button>
+      <h3 class="mb-3 text-center">Login to Career Hub</h3>
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Mobile Number</label>
+          <input type="tel" id="phoneNumber" class="form-control" placeholder="+91XXXXXXXXXX" required />
         </div>
-
-        <!-- OTP Form -->
-        <div id="otpSection" class="mt-3" style="display: none;">
-            <label for="otpCode" class="form-label">Enter OTP</label>
-            <input type="text" id="otpCode" class="form-control" placeholder="Enter OTP" />
-            <button class="btn btn-success w-100 mt-2" onclick="verifyOtp()">Verify OTP</button>
-        </div>
+        <div id="recaptcha-container"></div>
+        <button type="submit" class="btn btn-primary w-100">Send OTP</button>
+      </form>
+      <div id="otpSection" class="mt-3 d-none">
+        <label for="otpCode" class="form-label">Enter OTP</label>
+        <input type="text" id="otpCode" class="form-control" placeholder="Enter OTP" />
+        <button class="btn btn-success w-100 mt-2" id="verifyBtn">Verify OTP</button>
+      </div>
     </div>
-</div>
+  </div>
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -66,7 +59,10 @@
     </div>
   </section>
 
-  <!-- Firebase Config and JS -->
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCjawj05DLBBMCKfjOzVSb7s5ZvbkVCe7s",
@@ -79,6 +75,7 @@
     };
 
     firebase.initializeApp(firebaseConfig);
+
     let confirmationResult;
 
     window.onload = function () {
@@ -93,206 +90,37 @@
 
       document.getElementById('loginForm').addEventListener('submit', function (e) {
         e.preventDefault();
+
         const phoneNumber = document.getElementById('phoneNumber').value;
         const appVerifier = window.recaptchaVerifier;
 
         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
           .then(function (result) {
             confirmationResult = result;
-            document.getElementById('otpSection').style.display = 'block';
+            document.getElementById('otpSection').classList.remove('d-none');
             alert("OTP sent to " + phoneNumber);
           })
           .catch(function (error) {
             alert(error.message);
+            grecaptcha.reset(window.recaptchaVerifier);
+          });
+      });
+
+      document.getElementById('verifyBtn').addEventListener('click', function () {
+        const otp = document.getElementById('otpCode').value;
+        confirmationResult.confirm(otp)
+          .then(function (result) {
+            alert("Login successful!");
+            document.getElementById('loginModal').style.display = 'none';
+          })
+          .catch(function (error) {
+            alert("Invalid OTP. Try again.");
           });
       });
     };
-
-    function verifyOtp() {
-      const otp = document.getElementById('otpCode').value;
-      confirmationResult.confirm(otp)
-        .then(function (result) {
-          alert("Login successful!");
-          document.getElementById('loginModal').style.display = 'none';
-        })
-        .catch(function (error) {
-          alert("Invalid OTP. Try again.");
-        });
-    }
   </script>
 
   <!-- Bootstrap Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-       <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="#">Career Hub</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Careers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Resources</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-        <!-- Hero Section -->
-    <section class="hero text-center">
-        <div class="container">
-            <h1 class="display-4">Find Your Dream Career & Build Your Skills</h1>
-            <p class="lead">Explore career options, gain new skills, and access valuable resources.</p>
-            <a href="#careers" class="btn btn-warning btn-lg">Get Started</a>
-        </div>
-    </section>
-    
-<!-- Career Recommendation Form -->
-<section id="recommendation" class="container text-center my-5">
-    <h2>Find the Right Career Path</h2>
-    <form id="careerForm">
-        <div class="mb-3">
-            <label for="interest" class="form-label">What is your area of interest?</label>
-            <select class="form-select" id="interest">
-                <option value="software">Software Development</option>
-                <option value="data">Data Science</option>
-                <option value="cybersecurity">Cybersecurity</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-success">Get Recommendation</button>
-    </form>
-    <div id="suggestionResult" class="mt-4"></div>
-</section>
-   <!-- Career Section with Redirection -->
-<section id="careers" class="container text-center my-5">
-    <h2 class="mb-4">Popular Career Paths</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="career-card shadow p-4 rounded">
-                <h3>Software Engineer</h3>
-                <p>Develop applications and software solutions.</p>
-                <a href="https://www.linkedin.com/jobs/software-engineer-jobs" class="btn btn-primary mt-3" target="_blank">Explore Careers</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="career-card shadow p-4 rounded">
-                <h3>Data Scientist</h3>
-                <p>Analyze data and extract insights using AI and ML.</p>
-                <a href="https://www.coursera.org/courses?query=data%20science" class="btn btn-primary mt-3" target="_blank">Learn Data Science</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="career-card shadow p-4 rounded">
-                <h3>Cybersecurity Expert</h3>
-                <p>Protect systems from cyber threats and vulnerabilities.</p>
-                <a href="https://www.udemy.com/course/cyber-security-for-beginners/" class="btn btn-primary mt-3" target="_blank">Start Learning</a>
-            </div>
-        </div>
-    </div>
-</section>
-        <!-- Job Search Section -->
-<section id="jobSearch" class="container text-center my-5">
-    <h2>Search for Jobs</h2>
-    <p>Looking for job opportunities? Use the search below.</p>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" id="jobQuery" placeholder="Search for jobs (e.g., Software Engineer)">
-        <button class="btn btn-primary" id="searchJobs">Search Jobs</button>
-    </div>
-</section>
-
- <!-- In-Demand Skills Section with Box -->
-<section id="skills" class="container text-center my-5 skill-box">
-    <h2 class="mb-4">In-Demand Skills</h2>
-
-    <!-- Row with 4 skills -->
-    <div class="row justify-content-center">
-        <div class="col-md-3 skill-card">Cloud Computing (AWS, Azure, GCP)</div>
-        <div class="col-md-3 skill-card">Blockchain Development</div>
-        <div class="col-md-3 skill-card">DevOps & CI/CD</div>
-        <div class="col-md-3 skill-card">Internet of Things (IoT)</div>
-    </div>
-
-    <!-- Row with 3 skills -->
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-4 skill-card">UI/UX Design</div>
-        <div class="col-md-4 skill-card">Digital Marketing & SEO</div>
-        <div class="col-md-4 skill-card">Augmented & Virtual Reality (AR/VR)</div>
-    </div>
-
-    <!-- Row with 2 skills -->
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-5 skill-card">Critical Thinking & Problem Solving</div>
-        <div class="col-md-5 skill-card">Effective Communication</div>
-    </div>
-
-    <!-- Row with 1 skill -->
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-6 skill-card">Adaptability & Learning Agility</div>
-    </div>
-</section>
-
-
-   <!-- Footer Section -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <!-- About Section -->
-            <div class="footer-section about">
-                <h3>Career Hub</h3>
-                <p>Providing accessible, high-quality education and career guidance to empower students worldwide.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="footer-section links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- Courses -->
-            <div class="footer-section courses">
-                <h3>Courses</h3>
-                <ul>
-                    <li><a href="#">Web Development</a></li>
-                    <li><a href="#">Data Science</a></li>
-                    <li><a href="#">Mobile Development</a></li>
-                    <li><a href="#">Digital Marketing</a></li>
-                    <li><a href="#">UI/UX Design</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="footer-section contact">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Tamil Nadu, India</p>
-                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
-                <p><i class="fas fa-envelope"></i> info@careerhub.com</p>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2025 Career Hub. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-    </div>
-</footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
