@@ -55,12 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Firebase OTP Authentication
 const firebaseConfig = {
-    apiKey: "AIzaSyCjawj05DLBBMCKfjOzVSb7s5ZvbkVCe7s",
+    apiKey: "AIzaSyCjawj",
     authDomain: "career-hub-20458.firebaseapp.com",
     projectId: "career-hub-20458",
     storageBucket: "career-hub-20458.appspot.com",
     messagingSenderId: "741304763324",
-    appId: "1:741304763324:web:476dd2e483d34c8b3a61b9",
+    appId: "1:74130763324:web:476dd83d34c8b3a61b9",
     measurementId: "G-9904BZ8NXD"
 };
 
